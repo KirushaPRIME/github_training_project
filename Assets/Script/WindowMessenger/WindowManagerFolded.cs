@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ManGameWindowFolded : FoldedObjectScript
+public class MessegerWindowFolded : FoldedObjectScript
 {
     private bool StopTheGame = true;
     void Start()
@@ -15,24 +15,18 @@ public class ManGameWindowFolded : FoldedObjectScript
         {
             if (!StopTheGame)
             {
-                KeyManager.SetControlInManGame(false);
-                //Debug.Log(KeyManager.GetControlInManGame());
                 StopTheGame = true;
             }
-        } else if (StopTheGame)
+        }
+        else if (StopTheGame)
         {
             StopTheGame = false;
             if (CheakIMustFolded())
             {
-                KeyManager.SetControlInManGame(false);
-                //Debug.Log(KeyManager.GetControlInManGame());
             }
             if (CheakIMustOpen())
             {
-                KeyManager.SetControlInManGame(true);
-                //Debug.Log(KeyManager.GetControlInManGame());
             }
         }
-        //Debug.Log(false);
     }
 }
