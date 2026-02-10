@@ -41,6 +41,15 @@ TagManager:
   - name: Default
     uniqueID: 0
     locked: 0
-  - name: Interface
+  - name: Messenger
     uniqueID: 4096642379
+    locked: 0
+  - name: ManGame
+    uniqueID: 3853195715
+    locked: 0
+  - name: MessengerContent
+    uniqueID: 368367307
+    locked: 0
+  - name: GlobalInteface
+    uniqueID: 516096829
     locked: 0

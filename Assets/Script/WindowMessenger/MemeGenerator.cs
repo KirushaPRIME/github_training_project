@@ -70,7 +70,6 @@ public class MemeGenerator : MonoBehaviour
             words[types.IndexOf(type)].Add(word);
         }
         public int GetLeghtWords( string Type ) { 
-            bool A = true;
             for (int i = 0; i < types.Count; i++)
             {
                 if (Type == types[i])

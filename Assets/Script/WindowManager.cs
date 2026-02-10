@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -21,12 +22,14 @@ public class WindowManager : MonoBehaviour
     //private const float TimeForFolded = 1;
     void Start()
     {
+        
         HighlighterObject.GetComponent<UnityEngine.UI.Image>().enabled = false;
         HighlighterObject.GetComponent<Transform>().localScale = new Vector3(SmallScale, SmallScale, SmallScale);
         for (int i = 1; i < Windows.Length; i++)
         {
             Windows[i].GetComponent<Canvas>().enabled = false;
         }
+        FoldedAll();
         WindowOpen(0);
     }
 
@@ -85,13 +88,20 @@ public class WindowManager : MonoBehaviour
 
         }
     }
+    private void FoldedAll()
+    {
+        for (int i = 0; i < Windows.Length; i++)
+        {
+            Windows[i].GetComponent<FoldedObjectScript>().FoldedYourSelf();
+        }
+    }
     private void WindowFolded(short Index)
     {
-        FoldedObject = Windows[Index];
+        Windows[Index].GetComponent<FoldedObjectScript>().FoldedYourSelf();
     }
     private void WindowOpen(short Index)
     {
-        OpenObject = Windows[Index];
+        Windows[Index].GetComponent<FoldedObjectScript>().OpenYourSelf();
     }
     public static short GetHighlighterNamber() { return HighlighterNamber; }
     public static GameObject GetFoldedObject() { return FoldedObject; }

@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class ManGameWindowFolded : FoldedObjectScript
 {
@@ -25,11 +26,13 @@ public class ManGameWindowFolded : FoldedObjectScript
             if (CheakIMustFolded())
             {
                 KeyManager.SetControlInManGame(false);
+                GetComponent<Mask>().enabled = false;
                 //Debug.Log(KeyManager.GetControlInManGame());
             }
             if (CheakIMustOpen())
             {
                 KeyManager.SetControlInManGame(true);
+                GetComponent<Mask>().enabled = true;
                 //Debug.Log(KeyManager.GetControlInManGame());
             }
         }

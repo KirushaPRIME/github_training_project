@@ -5,7 +5,8 @@ using UnityEngine;
 
 public class FoldedObjectScript : MonoBehaviour
 {
-    protected bool IFolded = true;
+    protected bool IMustFolded = false;
+    protected bool IMustOpen = false;
     void Start()
     {
         
@@ -16,9 +17,9 @@ public class FoldedObjectScript : MonoBehaviour
     }
     protected bool CheakIMustFolded()
     {
-        if (WindowManager.GetFoldedObject() == gameObject && !IFolded)
+        if (IMustFolded)
         {
-            IFolded = true;
+            IMustFolded = false;
             GetComponent<Canvas>().enabled = false;
             GetComponent<SpriteMask>().enabled = false;
             return true;
@@ -27,13 +28,21 @@ public class FoldedObjectScript : MonoBehaviour
     }
     protected bool CheakIMustOpen()
     {
-        if (WindowManager.GetOpenObject() == gameObject && IFolded)
+        if (IMustOpen)
         {
-            IFolded = false;
+            IMustOpen = false;
             GetComponent<Canvas>().enabled = true;
             GetComponent<SpriteMask>().enabled = true;
             return true;
         }
         return false;
+    }
+    public void FoldedYourSelf()
+    {
+        IMustFolded = true;
+    }
+    public void OpenYourSelf()
+    {
+        IMustOpen = true;
     }
 }
