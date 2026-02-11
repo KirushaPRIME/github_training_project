@@ -1,41 +1,36 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class MessegerWindowFolded : FoldedObjectScript
 {
     private bool StopTheGame = true;
-    private SpriteMask Messenger;
+    private SpriteMask MessengerSpriteMask;
+    public SpriteMask Chat;
+    public UnityEngine.UI.Mask StikerPack;
+
     private void Awake()
     {
-        Messenger = GetComponent<SpriteMask>();
+        MessengerSpriteMask = GetComponent<SpriteMask>();
     }
     void Start()
     {
         
     }
-    void Update()
+    protected override void WhenOpenWindow()
     {
-        if (WindowManager.GetWindowIsSelected())
-        {
-            if (!StopTheGame)
-            {
-                StopTheGame = true;
-            }
-        }
-        else if (StopTheGame)
-        {
-            StopTheGame = false;
-            if (CheakIMustFolded())
-            {
-                //Do if game folded
-                Messenger.enabled = false;
-            }
-            if (CheakIMustOpen())
-            {
-                //Do if game open
-                Messenger.enabled = true;
-            }
-        }
+        //Do if game open
+        MessengerSpriteMask.enabled = true;
+        Chat.enabled = true;
+        StikerPack.enabled = true;
     }
+    protected override void WhenFoldedWindow()
+    {
+        //Do if game folded
+        MessengerSpriteMask.enabled = false;
+        Chat.enabled = false;
+        StikerPack.enabled = false;
+    }
+
 }

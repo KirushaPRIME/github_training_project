@@ -8,9 +8,12 @@ public class MemeManager : ClassMessge
     public List<Sprite> spriteList;
     public List<Sprite> spriteListForWork;
     public GameObject PrefabMeme;
+    private float Frequency = 5;
+    private float PostTime = 0;
 
     void Start()
     {
+        
         AddMeme(0);
         AddMeme(1);
         AddMeme(2);
@@ -18,7 +21,11 @@ public class MemeManager : ClassMessge
 
     void Update()
     {
-        
+        if (PostTime < Time.time)
+        {
+            PostTime = Time.time + Random.Range(Frequency / 2, Frequency*1.5f);
+
+        }
     }
     public bool AddMeme(uint Index)
     {
