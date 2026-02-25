@@ -8,7 +8,7 @@ public class StreetManager : MonoBehaviour
 {
     public God God;
 
-    private bool Instalized = false;
+    private static bool Instalized = false;
 
     //Дистанция для взаимодестви с объектами
     private static float InteractiveDistance = 1.2f;
@@ -149,13 +149,13 @@ public class StreetManager : MonoBehaviour
     {
         if (Instalized)
         {
-            Man.GetComponent<ManScript>().SetDynamicNeedDistance(Man.GetComponent<ManScript>().GetNeedDistance() * WindowManGame.GetComponent<Transform>().localScale.x);
+            Man.GetComponent<ManScript>().SetScaleDistance(WindowManGame.GetComponent<Transform>().localScale.x);
         }
     }
 
     public GameObject GetGenerator(int generatorIndex) { return generatorArray[generatorIndex]; }
     public void OneGeneratorIsReady() { GeneratorIsReady++; }
     public int GetGeneratorIsReady() {  return GeneratorIsReady; }
-    public bool GetInstalized() {  return Instalized; }
+    public static bool GetInstalized() {  return Instalized; }
     public static float GetInteractiveDistance() { return InteractiveDistance; }
 }

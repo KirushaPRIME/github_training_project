@@ -5,7 +5,6 @@ using UnityEngine.UI;
 
 public class MessegerWindowFolded : FoldedObjectScript
 {
-    private bool StopTheGame = true;
     private SpriteMask MessengerSpriteMask;
     public SpriteMask Chat;
     public UnityEngine.UI.Mask StikerPack;

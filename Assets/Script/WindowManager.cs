@@ -11,15 +11,21 @@ public class WindowManager : MonoBehaviour
     private static GameObject OpenObject;
     private static short HighlighterNamber = 0;
     private static short LastHighlighterNamber = 0;
-    public const short COUNT_WINDOW = 2;
-    public GameObject[] Windows = new GameObject[COUNT_WINDOW];
+    public int CountWindow {  get; private set; }
+    public GameObject[] Windows;
     private static bool WindowIsSelected = false;
     public const float NormalScale = 0.838f;
     public const float NormalWidht = 18f;
-    public const float SmallScale = NormalScale / (COUNT_WINDOW * Space);
-    public const float SmallWidht = NormalWidht / (COUNT_WINDOW * Space);
+    public float SmallScale { get; private set; }
+    public float SmallWidht { get; private set; }
     public const float Space = 1.2f;
     //private const float TimeForFolded = 1;
+    private void Awake()
+    {
+        CountWindow = Windows.Length;
+        SmallScale = NormalScale / (CountWindow * Space);
+        SmallWidht = NormalWidht / (CountWindow * Space);
+    }
     void Start()
     {
         
@@ -40,7 +46,7 @@ public class WindowManager : MonoBehaviour
         {
             WindowIsSelected = true;
             LastHighlighterNamber = HighlighterNamber;
-            float XForFirstPosition = -SmallWidht * COUNT_WINDOW / 2 + SmallWidht / 2 -(SmallWidht * (Space - 1) * (COUNT_WINDOW - 1)) / 2;
+            float XForFirstPosition = -SmallWidht * CountWindow / 2 + SmallWidht / 2 -(SmallWidht * (Space - 1) * (CountWindow - 1)) / 2;
             for (int i = 0; i < Windows.Length; i++)
             {
                 Windows[i].GetComponent<Transform>().localScale = new Vector3 (SmallScale, SmallScale, SmallScale);
@@ -63,8 +69,8 @@ public class WindowManager : MonoBehaviour
         }
         if (WindowIsSelected)
         {
-            if (Input.GetKeyDown(KeyManager.GetMoveLeft())){
-                if (HighlighterNamber < COUNT_WINDOW - 1)
+            if (Input.GetKeyDown(KeyManager.GetMoveRight())){
+                if (HighlighterNamber < CountWindow - 1)
                 {
                     HighlighterNamber++;
                 }
@@ -74,14 +80,14 @@ public class WindowManager : MonoBehaviour
                 }
                 HighlighterObject.GetComponent<Transform>().position = Windows[HighlighterNamber].GetComponent<Transform>().position;
             }
-            if (Input.GetKeyDown(KeyManager.GetMoveRight()))
+            if (Input.GetKeyDown(KeyManager.GetMoveLeft()))
             {
                 if (HighlighterNamber > 0)
                 {
                     HighlighterNamber--;
                 } else
                 {
-                    HighlighterNamber = COUNT_WINDOW - 1;
+                    HighlighterNamber = (short)(CountWindow - 1);
                 }
                 HighlighterObject.GetComponent<Transform>().position = Windows[HighlighterNamber].GetComponent<Transform>().position;
             }

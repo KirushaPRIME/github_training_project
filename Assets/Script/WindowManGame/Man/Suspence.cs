@@ -7,6 +7,7 @@ public class Suspence : MonoBehaviour
     private float TrigerDistance = 35;
     public ManScript ManScript;
     public AudioSource Suspense;
+    private bool SuspenceIsActive = false;
     private bool Play = true;
     void Start()
     {
@@ -14,13 +15,13 @@ public class Suspence : MonoBehaviour
     }
     void Update()
     {
-        if (TrigerDistance > Mathf.Abs(ManScript.GetRealDistance()))
+        if (TrigerDistance > Mathf.Abs(ManScript.GetRealDistance() * 1 / ManScript.GetScaleDistance()))
         {
             if (!Play) {
                 Suspense.Play();
                 Play = true;
             }
-            Suspense.volume = (TrigerDistance - Mathf.Abs(ManScript.GetRealDistance())) / TrigerDistance;
+            Suspense.volume = (TrigerDistance - Mathf.Abs(ManScript.GetRealDistance() * 1 / ManScript.GetScaleDistance())) / TrigerDistance;
         }
         else
         {
@@ -28,4 +29,6 @@ public class Suspence : MonoBehaviour
             Play = false;
         }
     }
+    public void SuspenceOn() { SuspenceIsActive = true; }
+    public void SuspenceOff() { SuspenceIsActive = false; }
 }

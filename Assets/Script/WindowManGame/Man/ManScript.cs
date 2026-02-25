@@ -9,7 +9,7 @@ public class ManScript : MonoBehaviour
     public SkillCheakManager SkillCheakManager;
     public StreetManager StreetManager;
     private float NeedDistance = 10;
-    private float DynamicNeedDistance = 10;
+    private float ScaleDistance = 1;
     private float RealDistance;
     private float NormalSpeed = 6;
     private float FastSpeed = 11;
@@ -17,11 +17,16 @@ public class ManScript : MonoBehaviour
     private bool IFindYou = false;
     private bool ICheckedItOut = false;
     private float WalkPurepouse;
+    public Suspence Suspence;
 
 
     void Start()
     {
         WalkPurepouse = GetComponent<Transform>().localPosition.x;
+        if (StreetManager.GetInstalized())
+        {
+            Suspence.SuspenceOn();
+        }
     }
     void Update()
     {
@@ -33,7 +38,7 @@ public class ManScript : MonoBehaviour
         {
             RealDistance = SSSGhoul.GetComponent<Transform>().position.x - GetComponent<Transform>().position.x;
             
-            if (DynamicNeedDistance > Mathf.Abs(RealDistance) && !SSSGhoul.GetComponent<SSS_Ghoul_Script>().GetIHid())
+            if (NeedDistance * ScaleDistance > Mathf.Abs(RealDistance) && !SSSGhoul.GetComponent<SSS_Ghoul_Script>().GetIHid())
             {
                 iAmComingForYou();
             }
@@ -50,7 +55,7 @@ public class ManScript : MonoBehaviour
                 walkingOnTheMap();
             }
             if (!SkillCheakManager.GetSkillCheackReady()) { ICheckedItOut = false; }
-            GetComponent<Rigidbody2D>().velocity = new Vector2(CurrentSpeed, 0);
+            GetComponent<Rigidbody2D>().velocity = new Vector2(CurrentSpeed * ScaleDistance, 0);
         }
     }
     private void OnTriggerEnter2D(Collider2D collision)
@@ -117,7 +122,8 @@ public class ManScript : MonoBehaviour
     }
     public void setNeedDistance(float NeedDistance) { this.NeedDistance = NeedDistance; }
     public float GetNeedDistance() {  return this.NeedDistance; }
-    public void SetDynamicNeedDistance(float DynamicNeedDistance) { this.DynamicNeedDistance = DynamicNeedDistance; }
+    public void SetScaleDistance(float ScaleDistance) { this.ScaleDistance = ScaleDistance; }
+    public float GetScaleDistance() { return this.ScaleDistance; }
     public void setNormalSpeed(float NormalSpeed) { this.NormalSpeed = NormalSpeed; }
     public void setFastSpeed(float FastSpeed) { this.FastSpeed = FastSpeed; }
     public float GetRealDistance() {  return RealDistance; }
