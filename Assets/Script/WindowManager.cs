@@ -10,7 +10,6 @@ public class WindowManager : MonoBehaviour
     private static GameObject FoldedObject;
     private static GameObject OpenObject;
     private static short HighlighterNamber = 0;
-    private static short LastHighlighterNamber = 0;
     public int CountWindow {  get; private set; }
     public GameObject[] Windows;
     private static bool WindowIsSelected = false;
@@ -45,27 +44,20 @@ public class WindowManager : MonoBehaviour
         if (!WindowIsSelected && Input.GetKeyDown(KeyManager.GetTransition()))
         {
             WindowIsSelected = true;
-            LastHighlighterNamber = HighlighterNamber;
-            float XForFirstPosition = -SmallWidht * CountWindow / 2 + SmallWidht / 2 -(SmallWidht * (Space - 1) * (CountWindow - 1)) / 2;
-            for (int i = 0; i < Windows.Length; i++)
-            {
-                Windows[i].GetComponent<Transform>().localScale = new Vector3 (SmallScale, SmallScale, SmallScale);
-                Windows[i].GetComponent<Transform>().localPosition = new Vector2(XForFirstPosition + i * SmallWidht * Space, 0);
-            }
-            HighlighterObject.GetComponent<UnityEngine.UI.Image>().enabled = true;
-            HighlighterObject.GetComponent<Transform>().position = Windows[HighlighterNamber].GetComponent<Transform>().position;
+            OpenSelectMenu();
         }
         if (WindowIsSelected && Input.GetKeyUp(KeyManager.GetTransition()))
         {
             WindowIsSelected = false;
-            WindowFolded(LastHighlighterNamber);
-            WindowOpen(HighlighterNamber);
+            
             for (int i = 0; i < Windows.Length; i++)
             {
                 Windows[i].GetComponent<Transform>().localScale = new Vector3(NormalScale, NormalScale , NormalScale );
                 Windows[i].GetComponent<Transform>().localPosition = new Vector2(0,0);
             }
             HighlighterObject.GetComponent<UnityEngine.UI.Image>().enabled = false;
+            FoldedAll();
+            WindowOpen(HighlighterNamber);
         }
         if (WindowIsSelected)
         {
@@ -94,13 +86,50 @@ public class WindowManager : MonoBehaviour
 
         }
     }
-    private void FoldedAll()
+
+    private void OpenSelectMenu()
     {
+        StopAllWindows();
+        float XForFirstPosition = -SmallWidht * CountWindow / 2 + SmallWidht / 2 - (SmallWidht * (Space - 1) * (CountWindow - 1)) / 2;
         for (int i = 0; i < Windows.Length; i++)
         {
-            Windows[i].GetComponent<FoldedObjectScript>().FoldedYourSelf();
+            Windows[i].GetComponent<Transform>().localScale = new Vector3(SmallScale, SmallScale, SmallScale);
+            Windows[i].GetComponent<Transform>().localPosition = new Vector2(XForFirstPosition + i * SmallWidht * Space, 0);
         }
+        HighlighterObject.GetComponent<UnityEngine.UI.Image>().enabled = true;
+        HighlighterObject.GetComponent<Transform>().position = Windows[HighlighterNamber].GetComponent<Transform>().position;
+        OpenAll();
     }
+
+    private void FinishWindowSelection()
+    {
+
+    }
+
+    private void StopAllWindows()
+    {
+        foreach (var window in Windows)
+            window.GetComponent<FoldedObjectScript>().DoWhenStartSelected();
+    }
+
+    private void RunAllWindows()
+    {
+        foreach (var window in Windows)
+            window.GetComponent<FoldedObjectScript>().DoWhenStopSelected();
+    }
+
+    private void FoldedAll()
+    {
+        foreach (var window in Windows)
+            window.GetComponent<FoldedObjectScript>().FoldedYourSelf();
+    }
+
+    private void OpenAll()
+    {
+        foreach(var window  in Windows)
+            window.GetComponent<FoldedObjectScript>().OpenYourSelf();
+    }
+
     private void WindowFolded(short Index)
     {
         Windows[Index].GetComponent<FoldedObjectScript>().FoldedYourSelf();

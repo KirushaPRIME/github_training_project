@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Suspence : MonoBehaviour
 {
-    private float TrigerDistance = 35;
+    public float TrigerDistance = 35;
     public ManScript ManScript;
     public AudioSource Suspense;
     private bool SuspenceIsActive = false;

@@ -15,6 +15,7 @@ public class FoldedObjectScript : MonoBehaviour
     }
     void Update()
     {
+        /*
         if (WindowManager.GetWindowIsSelected())
         {
             if (!StopTheGame)
@@ -38,7 +39,7 @@ public class FoldedObjectScript : MonoBehaviour
                 WhenOpenWindow();
                 
             }
-        }
+        }*/
     }
     protected virtual void WhenFoldedWindow() { }
     protected virtual void WhenOpenWindow() { }
@@ -64,12 +65,29 @@ public class FoldedObjectScript : MonoBehaviour
         }
         return false;
     }
+
+    public virtual void DoWhenStartSelected()
+    {
+
+    }
+
+    public virtual void DoWhenStopSelected()
+    {
+
+    }
+
     public void FoldedYourSelf()
     {
-        IMustFolded = true;
+        WhenFoldedWindow();
+        GetComponent<Canvas>().enabled = false;
+        GetComponent<SpriteMask>().enabled = false;
+        //IMustFolded = true;
     }
     public void OpenYourSelf()
     {
-        IMustOpen = true;
+        WhenOpenWindow();
+        GetComponent<Canvas>().enabled = true;
+        GetComponent<SpriteMask>().enabled = true;
+        //IMustOpen = true;
     }
 }

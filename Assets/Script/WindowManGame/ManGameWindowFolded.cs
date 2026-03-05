@@ -10,15 +10,27 @@ public class ManGameWindowFolded : FoldedObjectScript
     {
         
     }
+
     protected override void WhenOpenWindow()
     {
         KeyManager.SetControlInManGame(true);
         GetComponent<Mask>().enabled = true;
         //Debug.Log(KeyManager.GetControlInManGame());
     }
+
     protected override void WhenFoldedWindow()
     {
         KeyManager.SetControlInManGame(false);
         GetComponent<Mask>().enabled = false;
+    }
+
+    public override void DoWhenStartSelected()
+    {
+        KeyManager.SetControlInManGame(false);
+    }
+
+    public override void DoWhenStopSelected()
+    {
+
     }
 }
