@@ -43,35 +43,35 @@ public class FoldedObjectScript : MonoBehaviour
     }
     protected virtual void WhenFoldedWindow() { }
     protected virtual void WhenOpenWindow() { }
-    protected bool CheakIMustFolded()
+    //protected bool CheakIMustFolded()
+    //{
+    //    if (IMustFolded)
+    //    {
+    //        IMustFolded = false;
+    //        GetComponent<Canvas>().enabled = false;
+    //        GetComponent<SpriteMask>().enabled = false;
+    //        return true;
+    //    }
+    //    return false;
+    //}
+    //protected bool CheakIMustOpen()
+    //{
+    //    if (IMustOpen)
+    //    {
+    //        IMustOpen = false;
+    //        GetComponent<Canvas>().enabled = true;
+    //        GetComponent<SpriteMask>().enabled = true;
+    //        return true;
+    //    }
+    //    return false;
+    //}
+
+    public virtual void StopThisWindow()
     {
-        if (IMustFolded)
-        {
-            IMustFolded = false;
-            GetComponent<Canvas>().enabled = false;
-            GetComponent<SpriteMask>().enabled = false;
-            return true;
-        }
-        return false;
-    }
-    protected bool CheakIMustOpen()
-    {
-        if (IMustOpen)
-        {
-            IMustOpen = false;
-            GetComponent<Canvas>().enabled = true;
-            GetComponent<SpriteMask>().enabled = true;
-            return true;
-        }
-        return false;
+
     }
 
-    public virtual void DoWhenStartSelected()
-    {
-
-    }
-
-    public virtual void DoWhenStopSelected()
+    public virtual void StartThisWindow()
     {
 
     }

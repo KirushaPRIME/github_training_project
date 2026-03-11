@@ -4,14 +4,23 @@ using UnityEngine;
 
 public class KeyManager : MonoBehaviour
 {
-    static private KeyCode Interaction = KeyCode.E;
-    static private KeyCode MoveLeft = KeyCode.A;
-    static private KeyCode MoveRight = KeyCode.D;
-    static private KeyCode Action = KeyCode.Space;
-    static private KeyCode Run = KeyCode.LeftShift;
-    static private KeyCode Transition = KeyCode.Tab;
+    static public KeyCode Interaction { get; private set; }
+    static public KeyCode MoveLeft { get; private set; }
+    static public KeyCode MoveRight { get; private set; }
+    static public KeyCode Action { get; private set; }
+    static public KeyCode Run { get; private set; }
+    static public KeyCode Transition { get; private set; }
 
     static private bool ControlInManGame = false;
+    void Awake(){
+        Interaction = KeyCode.E;
+        MoveLeft = KeyCode.A;
+        MoveRight = KeyCode.D;
+        Action = KeyCode.Space;
+        Run = KeyCode.LeftShift;
+        Transition = KeyCode.Tab;
+    }
+
     void Start()
     {
         

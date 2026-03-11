@@ -24,12 +24,12 @@ public class ManGameWindowFolded : FoldedObjectScript
         GetComponent<Mask>().enabled = false;
     }
 
-    public override void DoWhenStartSelected()
+    public override void StopThisWindow()
     {
         KeyManager.SetControlInManGame(false);
     }
 
-    public override void DoWhenStopSelected()
+    public override void StartThisWindow()
     {
 
     }

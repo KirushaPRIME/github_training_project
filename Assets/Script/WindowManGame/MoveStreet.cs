@@ -5,9 +5,11 @@ using UnityEngine.UIElements;
 
 public class MoveStreet : MonoBehaviour
 {
+    public Animator PlayerAnimator;
+
     private bool ObstacleOnTheLeft = false;
     private bool ObstacleOnTheRight = false;
-    public Transform SSSGhoul;
+    public Transform Tr_SSSGhoul;
     public Transform MainCamera;
     private static Transform TransformPosition;
     private int Speed = SSS_Ghoul_Script.CONST_SPEED;
@@ -27,7 +29,7 @@ public class MoveStreet : MonoBehaviour
     {
         if (GatesScript.GetTouchingObject() != null)
         {
-            if (GatesScript.GetTouchingObject().position.x < SSSGhoul.position.x)
+            if (GatesScript.GetTouchingObject().position.x < Tr_SSSGhoul.position.x)
             {
                 ObstacleOnTheLeft = true;
             }
@@ -83,6 +85,7 @@ public class MoveStreet : MonoBehaviour
             GetComponent<Rigidbody2D>().velocity = new Vector2(-X, 0);
             //Debug.Log("+");
         }
+        PlayerAnimator.SetFloat("Speed", Mathf.Abs(X));
         //Debug.Log(KeyManager.GetControlInManGame());
     }
     public static Transform GetTransformPosition() { return TransformPosition; }

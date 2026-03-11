@@ -89,7 +89,6 @@ public class WindowManager : MonoBehaviour
 
     private void OpenSelectMenu()
     {
-        StopAllWindows();
         float XForFirstPosition = -SmallWidht * CountWindow / 2 + SmallWidht / 2 - (SmallWidht * (Space - 1) * (CountWindow - 1)) / 2;
         for (int i = 0; i < Windows.Length; i++)
         {
@@ -99,6 +98,7 @@ public class WindowManager : MonoBehaviour
         HighlighterObject.GetComponent<UnityEngine.UI.Image>().enabled = true;
         HighlighterObject.GetComponent<Transform>().position = Windows[HighlighterNamber].GetComponent<Transform>().position;
         OpenAll();
+        StopAllWindows();
     }
 
     private void FinishWindowSelection()
@@ -109,13 +109,13 @@ public class WindowManager : MonoBehaviour
     private void StopAllWindows()
     {
         foreach (var window in Windows)
-            window.GetComponent<FoldedObjectScript>().DoWhenStartSelected();
+            window.GetComponent<FoldedObjectScript>().StopThisWindow();
     }
 
     private void RunAllWindows()
     {
         foreach (var window in Windows)
-            window.GetComponent<FoldedObjectScript>().DoWhenStopSelected();
+            window.GetComponent<FoldedObjectScript>().StartThisWindow();
     }
 
     private void FoldedAll()
