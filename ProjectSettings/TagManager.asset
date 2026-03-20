@@ -3,7 +3,8 @@
 --- !u!78 &1
 TagManager:
   serializedVersion: 2
-  tags: []
+  tags:
+  - InteractiveObject
   layers:
   - Default
   - TransparentFX
@@ -46,6 +47,9 @@ TagManager:
     locked: 0
   - name: ManGame
     uniqueID: 3853195715
+    locked: 0
+  - name: ManGameInterface
+    uniqueID: 989194669
     locked: 0
   - name: MessengerContent
     uniqueID: 368367307

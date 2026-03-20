@@ -1,6 +1,10 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+
+
+
 
 public class SkillCheakBehaviour : MonoBehaviour
 {
@@ -24,8 +28,10 @@ public class SkillCheakBehaviour : MonoBehaviour
     public GameObject CircleInside;
     public GameObject CircleOutside;
 
+    //public CheakSC_Interface[] Overseers;
 
-    public CheakSC_Interface[] Overseers;
+    public delegate void FailSkillCheak(object Ob, EventArgs args);
+    public static event FailSkillCheak Fail;
 
     public void StartSkillCheak(float Delay, int NamberSkillCheak)
     {
@@ -107,7 +113,8 @@ public class SkillCheakBehaviour : MonoBehaviour
             else
             {
                 Debug.Log("Fail");
-                DoWhenFailSkillCheak();
+                if(Fail != null) Fail(this, new EventArgs());
+                //DoWhenFailSkillCheak();
             }
             CompleteSkillCheak();
             Debug.Log("End");
@@ -129,7 +136,7 @@ public class SkillCheakBehaviour : MonoBehaviour
     {
         CurrentAngel = 0;
         CircleInside.GetComponent<UnityEngine.UI.Image>().fillAmount = GreatReactionCorner / 360;
-        CornerCircle = Random.Range(90, 330);
+        CornerCircle = UnityEngine.Random.Range(90, 330);
         CircleInside.GetComponent<Transform>().rotation = Quaternion.Euler(0, 0, 180 + CornerCircle);
     }
 
@@ -167,10 +174,10 @@ public class SkillCheakBehaviour : MonoBehaviour
         }
     }
 
-    void DoWhenFailSkillCheak()
-    {
-        if (Overseers != null)
-            foreach (var CSC in Overseers)
-                CSC.DoWhenFailSkillCheak();
-    }
+    //void DoWhenFailSkillCheak()
+    //{
+    //    if (Overseers != null)
+    //        foreach (var CSC in Overseers)
+    //            CSC.DoWhenFailSkillCheak();
+    //}
 }

@@ -20,12 +20,14 @@ public class MessegerWindowFolded : FoldedObjectScript
     protected override void WhenOpenWindow()
     {
         //Do if game open
+        GetComponent<SpriteMask>().enabled = true;
         MessengerSpriteMask.enabled = true;
         Chat.enabled = true;
         StikerPack.enabled = true;
     }
     protected override void WhenFoldedWindow()
     {
+        GetComponent<SpriteMask>().enabled = false;
         //Do if game folded
         MessengerSpriteMask.enabled = false;
         Chat.enabled = false;

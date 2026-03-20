@@ -7,6 +7,9 @@ public class SurvBehaviour : MonoBehaviour
 {
     private float WalkSpeed;
     private float RunSpeed;
+
+    public bool CanMove = true;
+
     float SpeedMultiplier => RunSpeed / WalkSpeed;
 
     Animator animator;
@@ -25,7 +28,12 @@ public class SurvBehaviour : MonoBehaviour
 
     private void FixedUpdate()
     {
-        if (Input.GetKey(KeyManager.MoveLeft))
+        
+        if(Input.GetKey(KeyManager.MoveLeft) && Input.GetKey(KeyManager.MoveRight) || !CanMove)
+        {
+            MoveVector = Vector2.zero;
+        }
+        else if (Input.GetKey(KeyManager.MoveLeft))
         {
             MoveVector = new Vector2(-WalkSpeed, 0);
             

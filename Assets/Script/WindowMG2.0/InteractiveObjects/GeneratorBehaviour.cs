@@ -10,6 +10,7 @@ public class GeneratorBehaviour : InteractiveObjectBehaviour
 
     protected override void Awake()
     {
+        HaveProgressBar = true;
         InteractionTime = 20;
         _SkillCheakBehaviour = GameObject.Find("SkillCheak").GetComponent<SkillCheakBehaviour>();
         base.Awake();

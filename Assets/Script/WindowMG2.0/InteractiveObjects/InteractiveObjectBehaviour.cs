@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
@@ -8,13 +9,15 @@ public abstract class InteractiveObjectBehaviour : MonoBehaviour
 {
     protected float InteractionTime {get;set; }
     protected float InteractionProgress { get; private set; }
-    protected bool IsSurvInTrigger { get; private set; }
+    protected bool IsSurvInTrigger { get; set; }
+    protected GameObject Surv { get; private set; }
     public bool IsSurvInteracting {  get; private set; }
     public bool IsDone { get; private set; }
 
+    protected bool HaveProgressBar;
     private UnityEngine.UI.Image ProgressBar;
     private HintsBehaviour Hints;
-    private GameObject Surv;
+    
 
 
     protected virtual void DoWithInteraction() { }
@@ -24,24 +27,29 @@ public abstract class InteractiveObjectBehaviour : MonoBehaviour
 
     protected virtual void Awake()
     {
-        //Если объект имеет время взаимодействия пытаемся найти ProgressBar
-        if (InteractionTime > 0)
-        {
-            ProgressBar = GetComponent<Transform>().
-            GetChild(0).
-            GetChild(0).
-            GetComponent<UnityEngine.UI.Image>();
-            if (ProgressBar == null)
+        gameObject.tag = "InteractiveObject";
+
+        if (HaveProgressBar)
+            try
             {
-                Debug.Log("ProgressBar не найден, не смотря не то, что InteractionTime > 0!");
-                this.gameObject.SetActive(false);
+                ProgressBar = GetComponent<Transform>().
+                GetChild(0).
+                GetChild(0).
+                GetComponent<UnityEngine.UI.Image>();
             }
-        }
-        else
+            catch
+            {
+                Console.Error.WriteLine("Не удалось найти объект ProgressBar");
+                Debug.Log("Не удалось найти объект ProgressBar");
+            }
+
+        if (InteractionTime < 0)
         {
             Debug.Log("Время взаимодействия не может быть отрицательным!");
             InteractionTime = 0;
+
         }
+
 
         Hints = GameObject.Find("Hints").GetComponent<HintsBehaviour>();
         if (Hints == null)
@@ -65,13 +73,19 @@ public abstract class InteractiveObjectBehaviour : MonoBehaviour
 
     protected void OnTriggerEnter2D(Collider2D other)
     {
-        IsSurvInTrigger = true;
-        Hints.UpdateHint("Click " + KeyManager.Interaction.ToString() + " to interact");
+        if (other.name == "Surv")
+        {
+            IsSurvInTrigger = true;
+            Hints.UpdateHint(true, HintsBehaviour.TypeMessage.BaseIteraction);
+        }
     }
     protected void OnTriggerExit2D(Collider2D other)
     {
-        IsSurvInTrigger = false;
-        Hints.UpdateHint("");
+        if (other.name == "Surv")
+        {
+            IsSurvInTrigger = false;
+            Hints.UpdateHint(false, HintsBehaviour.TypeMessage.BaseIteraction);
+        }
     }
     void Start()
     {
@@ -94,7 +108,7 @@ public abstract class InteractiveObjectBehaviour : MonoBehaviour
         {
             IsSurvInteracting = false;
             IsDone = true;
-            if (ProgressBar != null) ProgressBar.fillAmount = 1;
+            if (HaveProgressBar) ProgressBar.fillAmount = 1;
             DoWhenDone();
         }
 
@@ -102,13 +116,14 @@ public abstract class InteractiveObjectBehaviour : MonoBehaviour
         {
             InteractionProgress += Time.deltaTime;
 
-            if (ProgressBar != null) ProgressBar.fillAmount = InteractionProgress / InteractionTime;
+            if (HaveProgressBar) ProgressBar.fillAmount = InteractionProgress / InteractionTime;
 
             DoWithInteraction();
 
             if (Surv.GetComponent<SurvBehaviour>().MoveVector.x != 0)
             {
                 IsSurvInteracting = false;
+                Debug.Log(IsSurvInteracting);
                 DoWithStopInteraction();
             }
         }

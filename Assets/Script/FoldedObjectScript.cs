@@ -80,14 +80,14 @@ public class FoldedObjectScript : MonoBehaviour
     {
         WhenFoldedWindow();
         GetComponent<Canvas>().enabled = false;
-        GetComponent<SpriteMask>().enabled = false;
+        
         //IMustFolded = true;
     }
     public void OpenYourSelf()
     {
         WhenOpenWindow();
         GetComponent<Canvas>().enabled = true;
-        GetComponent<SpriteMask>().enabled = true;
+        
         //IMustOpen = true;
     }
 }

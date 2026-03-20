@@ -66,6 +66,8 @@ MonoBehaviour:
     the 2D Renderer in Universal RP.
   preview: {fileID: -3604256930052969394}
   dependencies:
+  - dependency: {fileID: 9100000, guid: b5da36209195ca4469a0f4bc6be1a677, type: 2}
+    instantiationMode: 0
   - dependency: {fileID: 2800000, guid: 4df504c056592e045b34e761e65038b5, type: 3}
     instantiationMode: 0
   - dependency: {fileID: 8532913507106314687, guid: 7426b3f2f0768d847a0a038979e7ab33, type: 3}
@@ -158,15 +160,19 @@ MonoBehaviour:
     instantiationMode: 0
   - dependency: {fileID: 2800000, guid: 2637b845c5a315f4d899390482f2bd1c, type: 3}
     instantiationMode: 0
+  - dependency: {fileID: 1141552417795815939, guid: ef29e2a1ad93977488f87fa708929aaa, type: 3}
+    instantiationMode: 0
   - dependency: {fileID: 5919286759317594076, guid: f2010c6d381dffe499ea7b040e193d13, type: 3}
+    instantiationMode: 0
+  - dependency: {fileID: 2800000, guid: cb1c5d56baf85c9488ae071509bf162b, type: 3}
     instantiationMode: 0
   - dependency: {fileID: 2800000, guid: 4e7aad0e1ba640245a0d3b6e9593fbb7, type: 3}
     instantiationMode: 0
   - dependency: {fileID: 11400000, guid: 2e498d1c8094910479dc3e1b768306a4, type: 2}
     instantiationMode: 1
-  - dependency: {fileID: 2800000, guid: 69e96a888f9c924468f432d9296eb736, type: 3}
-    instantiationMode: 0
   - dependency: {fileID: 2800000, guid: a5b076e8ba0bf6b499eb0227b7c9683b, type: 3}
+    instantiationMode: 0
+  - dependency: {fileID: 2800000, guid: 69e96a888f9c924468f432d9296eb736, type: 3}
     instantiationMode: 0
   - dependency: {fileID: 2800000, guid: 6b3d6f1d18793684f8be93b082dd39ff, type: 3}
     instantiationMode: 0
@@ -201,6 +207,8 @@ MonoBehaviour:
   - dependency: {fileID: 8300000, guid: bcdf892ca11322948b4cb48316238ebf, type: 3}
     instantiationMode: 1
   - dependency: {fileID: 2800000, guid: 12f9cab679efa3645879260a1c6c0f98, type: 3}
+    instantiationMode: 0
+  - dependency: {fileID: 4170470915575138278, guid: a95b2af6179e7d84eb94982f45c1f8f9, type: 3}
     instantiationMode: 0
   - dependency: {fileID: 2800000, guid: e95607b4b58f9064eb3fa94d5744940d, type: 3}
     instantiationMode: 0
