@@ -22,11 +22,10 @@ public class FocusOnSurv : MonoBehaviour
 
     void FixedUpdate()
     {
-        VectorX =  Tr_Surv.position.x - this.transform.position.x;
-        
+        VectorX =  Tr_Surv.localPosition.x - this.transform.localPosition.x;
         if (Mathf.Abs(VectorX) > 1)
         {
-            if (Mathf.Abs(VectorX) > 3)
+            if (Mathf.Abs(VectorX) > 2)
                 IsLongDistance = true;
             if (IsLongDistance)
                 if (Mathf.Abs(survBehaviour.MoveVector.x) > 0)
@@ -34,7 +33,7 @@ public class FocusOnSurv : MonoBehaviour
                 else
                     PositionX += ((VectorX > 0) ? 1 : -1) * 2 * Time.fixedDeltaTime;
             GetComponent<Transform>().localPosition =
-                                new Vector3(PositionX, this.transform.localPosition.y, this.transform.localPosition.z);
+                                new Vector3(PositionX * ScaleManager.ScaleWindow, this.transform.localPosition.y, this.transform.localPosition.z);
         } else
             IsLongDistance = false;
     }

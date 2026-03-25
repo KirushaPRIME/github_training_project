@@ -6,6 +6,7 @@ using UnityEngine.EventSystems;
 
 public class ManBehaviour : MonoBehaviour
 {
+    public Transform Tr_Surv;
     delegate void Behaviour();
     Behaviour behaviour;
 
@@ -18,11 +19,13 @@ public class ManBehaviour : MonoBehaviour
     RaycastHit2D hit;
     LayerMask mask;
 
+    Vector2 DirectionView = new Vector2(-1,0);
+
 
     private void Awake()
     {
         mask = LayerMask.GetMask("MG2.0");
-        triggerDistance = 5;
+        triggerDistance = 6;
     }
     void Start()
     {
@@ -35,7 +38,7 @@ public class ManBehaviour : MonoBehaviour
 
     void FixedUpdate()
     {
-        hit = Physics2D.Raycast(transform.position, new Vector2(-1, 0), triggerDistance * ScaleManager.ScaleWindow, mask);
+        hit = Physics2D.Raycast(transform.position, (MM.MoveVector), triggerDistance * ScaleManager.ScaleWindow, mask);
         if (hit.collider != null)
         {
             if(hit.collider.name == "Surv")
@@ -93,11 +96,11 @@ public class ManBehaviour : MonoBehaviour
             if (TimeNextTurn < Time.time) {
                 if ((int)(Time.time - StopLookAroundTime) % 2 == 0)
                 {
-                    Debug.Log("LookRigth");
+                    //Debug.Log("LookRigth");
                 }
                 else
                 {
-                    Debug.Log("LookLeft");
+                    //Debug.Log("LookLeft");
                 }
                 TimeNextTurn = Time.time + LookingBackTime;
             }
@@ -107,10 +110,38 @@ public class ManBehaviour : MonoBehaviour
     void Pursuit()
     {
         Debug.Log("Pursuit");
+        MM.FastMove(Tr_Surv.localPosition.x - transform.localPosition.x);
+    }
+
+    bool CheakWhereThis = false;
+    float NoisePlace;
+    void CheakPlace()
+    {
+        if (!CheakWhereThis)
+        {
+            NoisePlace = Tr_Surv.localPosition.x;
+            CheakWhereThis = true;
+        }
+        else
+        {
+            MM.FastMove(NoisePlace - transform.localPosition.x);
+        }
+        if (Mathf.Abs(NoisePlace - transform.localPosition.x) < 1)
+        {
+            behaviour = new Behaviour(MapCrowling);
+        }
+    }
+
+
+    private void ResetValues()
+    {
+        
     }
 
     public void WhinFailSkillCheak(object Ob, EventArgs args)
     {
         Debug.Log("I see that!");
+        CheakWhereThis = false;
+        behaviour = new Behaviour(CheakPlace);
     }
 }

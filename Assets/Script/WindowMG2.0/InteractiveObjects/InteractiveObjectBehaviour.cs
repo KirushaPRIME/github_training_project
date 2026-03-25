@@ -7,7 +7,10 @@ using UnityEngine.UIElements;
 
 public abstract class InteractiveObjectBehaviour : MonoBehaviour
 {
-    protected float InteractionTime {get;set; }
+    public delegate void Iteration(object Ob, EventArgs args);
+    public static event Iteration StartInteraction;
+
+    public float InteractionTime {get;set; }
     protected float InteractionProgress { get; private set; }
     protected bool IsSurvInTrigger { get; set; }
     protected GameObject Surv { get; private set; }
@@ -64,7 +67,6 @@ public abstract class InteractiveObjectBehaviour : MonoBehaviour
             Debug.Log("Объект Surv не найден!");
             this.gameObject.SetActive(false);
         }
-
         InteractionProgress = 0;
         IsSurvInTrigger = false;
         IsSurvInteracting = false;
@@ -87,20 +89,17 @@ public abstract class InteractiveObjectBehaviour : MonoBehaviour
             Hints.UpdateHint(false, HintsBehaviour.TypeMessage.BaseIteraction);
         }
     }
-    void Start()
-    {
-        
-    }
     void Update()
     {
-        if (!IsSurvInTrigger)
+        if (!IsSurvInTrigger || IsDone)
             goto EndUpdate;
 
-        if (!IsSurvInteracting && Input.GetKeyDown(KeyManager.Interaction))
+        if (!IsSurvInteracting && Input.GetKey(KeyManager.Interaction))
         {
             IsSurvInteracting = true;
             Surv.GetComponent<Transform>().position = 
                 new Vector2(this.transform.position.x, Surv.GetComponent<Transform>().position.y);
+            if(StartInteraction != null) StartInteraction(this, new EventArgs());
             DoWithStartInteraction();
         }
 

@@ -19,7 +19,7 @@ public class WindowMG2dot0Folded : FoldedObjectScript
         mask.enabled = false;
         //spriteMask.enabled = false;
         MaskImage.enabled = false;
-        WindowSpriteMask.enabled = true;
+        WindowSpriteMask.enabled = false;
         survBehaviour.CanMove = true;
         MG2dot0Camera.SetActive(true);
         GlobalCamera.SetActive(false);
@@ -27,6 +27,9 @@ public class WindowMG2dot0Folded : FoldedObjectScript
     protected override void WhenFoldedWindow()
     {
         survBehaviour.CanMove = false;
+        mask.enabled = false;
+        MaskImage.enabled = false;
+        WindowSpriteMask.enabled = false;
     }
     public override void StopThisWindow()
     {

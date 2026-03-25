@@ -8,8 +8,8 @@ using UnityEngine;
 
 public class SkillCheakBehaviour : MonoBehaviour
 {
-    public float ArrowSpeed = 200;
-    public float GreatReactionCorner = 60;// Размер отличной проверки реакции в виде угла
+    public static float ArrowSpeed = 200;
+    public static float GreatReactionCorner = 60;// Размер отличной проверки реакции в виде угла
 
 
     private float StartTime = 0;
@@ -28,10 +28,15 @@ public class SkillCheakBehaviour : MonoBehaviour
     public GameObject CircleInside;
     public GameObject CircleOutside;
 
+    public AudioSource StartSkillCheakAudio;
+    public AudioSource GreatSkillCheakAudio;
+    public AudioSource FailSkillCheakAudio;
+
     //public CheakSC_Interface[] Overseers;
 
     public delegate void FailSkillCheak(object Ob, EventArgs args);
     public static event FailSkillCheak Fail;
+
 
     public void StartSkillCheak(float Delay, int NamberSkillCheak)
     {
@@ -43,13 +48,23 @@ public class SkillCheakBehaviour : MonoBehaviour
             HasSkillCheakStarted = false;
             Result = true;
             this.NamberSkillCheak = (NamberSkillCheak > 0) ? NamberSkillCheak : 1;
+            StartSkillCheakAudio.Play();
         }
     }
 
     public void DoSafeBreak()
     {
-        HaveResult = true;
-        Result = true;
+        if (HasSkillCheakStarted && !HasSkillCheakEnded)
+        {
+            HaveResult = true;
+            Result = true;
+            WasClick = true;
+            CurrentAngel += 360;
+        } else if (!HasSkillCheakStarted)
+        {
+            HasSkillCheakEnded = true;
+        }
+        
     }
 
     public void DoDangerBreak()
@@ -59,6 +74,10 @@ public class SkillCheakBehaviour : MonoBehaviour
             HaveResult = true;
             Result = false;
             CurrentAngel += 360;
+        }
+        else if (!HasSkillCheakStarted)
+        {
+            HasSkillCheakEnded = true;
         }
     }
 
@@ -113,7 +132,8 @@ public class SkillCheakBehaviour : MonoBehaviour
             else
             {
                 Debug.Log("Fail");
-                if(Fail != null) Fail(this, new EventArgs());
+                FailSkillCheakAudio.Play();
+                if (Fail != null) Fail(this, new EventArgs());
                 //DoWhenFailSkillCheak();
             }
             CompleteSkillCheak();
@@ -161,6 +181,7 @@ public class SkillCheakBehaviour : MonoBehaviour
         if (CurrentAngel <= CornerCircle &&
             CurrentAngel >= CornerCircle - GreatReactionCorner)
         {
+            GreatSkillCheakAudio.Play();
             CountSkillCheak++;
             if (CountSkillCheak >= NamberSkillCheak)
             {

@@ -28,8 +28,7 @@ public class SurvBehaviour : MonoBehaviour
 
     private void FixedUpdate()
     {
-        
-        if(Input.GetKey(KeyManager.MoveLeft) && Input.GetKey(KeyManager.MoveRight) || !CanMove)
+        if (Input.GetKey(KeyManager.MoveLeft) && Input.GetKey(KeyManager.MoveRight) || !CanMove)
         {
             MoveVector = Vector2.zero;
         }

@@ -1,13 +1,18 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
 public class MessegerWindowFolded : FoldedObjectScript
 {
+
     private SpriteMask MessengerSpriteMask;
+
+    public BlockMessengerButtonBehaviour BMBB;
     public SpriteMask Chat;
     public UnityEngine.UI.Mask StikerPack;
+    public EventSystem eventSystem;
 
     private void Awake()
     {
@@ -20,6 +25,7 @@ public class MessegerWindowFolded : FoldedObjectScript
     protected override void WhenOpenWindow()
     {
         //Do if game open
+        BMBB.Unblock();
         GetComponent<SpriteMask>().enabled = true;
         MessengerSpriteMask.enabled = true;
         Chat.enabled = true;
@@ -33,5 +39,8 @@ public class MessegerWindowFolded : FoldedObjectScript
         Chat.enabled = false;
         StikerPack.enabled = false;
     }
-
+    public override void StopThisWindow()
+    {
+        BMBB.Block();
+    }
 }
