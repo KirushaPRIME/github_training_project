@@ -16,7 +16,7 @@ public class Suspense : MonoBehaviour
     {
         if (Mathf.Abs(Tr_Surv.transform.localPosition.x - transform.localPosition.x) < TriggerDistance)
         {
-            Susp.volume = Mathf.Pow((TriggerDistance - Mathf.Abs(Tr_Surv.transform.localPosition.x - transform.localPosition.x)) / TriggerDistance, 1.5f);
+            Susp.volume = (TriggerDistance - Mathf.Abs(Tr_Surv.transform.localPosition.x - transform.localPosition.x)) / TriggerDistance;
             
         }
         else

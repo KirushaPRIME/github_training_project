@@ -44,7 +44,7 @@ public class MG2dot0Manager : MonoBehaviour
         GateBehaviour.NamberForOpen = 2;
 
         Man.GetComponent<ManMove>().NormalSpeed = 3.5f;
-        Man.GetComponent<ManMove>().FastSpeed = 6.5f;
+        Man.GetComponent<ManMove>().FastSpeed = 7f;
 
         SkillCheakBehaviour.ArrowSpeed = 200;
         SkillCheakBehaviour.GreatReactionCorner = 60;
@@ -64,7 +64,7 @@ public class MG2dot0Manager : MonoBehaviour
             GeneratorNamber = 5;
             GateBehaviour.NamberForOpen = 3;
             Man.GetComponent<ManMove>().NormalSpeed = 4f;
-            Man.GetComponent<ManMove>().FastSpeed = 7f;
+            Man.GetComponent<ManMove>().FastSpeed = 8f;
             GeneratorBehaviour.MaxSkillCheakPause = 7;
         }
         if (Scenes.Level > 2)

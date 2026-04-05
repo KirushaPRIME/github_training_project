@@ -14,6 +14,8 @@ public class SurvBehaviour : MonoBehaviour
 
     Animator animator;
     Rigidbody2D body;
+    public AudioSource StepsAudio;
+    char AudioStatus;
 
     public Vector2 MoveVector { get; private set; }
 
@@ -21,7 +23,7 @@ public class SurvBehaviour : MonoBehaviour
     private void Awake()
     {
         WalkSpeed = 3;
-        RunSpeed = 6;
+        RunSpeed = 7;
         body = GetComponent<Rigidbody2D>();
         animator = GetComponent<Animator>();
     }
@@ -49,14 +51,43 @@ public class SurvBehaviour : MonoBehaviour
 
         if (Input.GetKey(KeyManager.Run)){
             MoveVector *= SpeedMultiplier;
+            PlayAudio('R');
+        } else if(MoveVector != Vector2.zero)
+        {
+            PlayAudio('W');
+        }
+        else
+        {
+            PlayAudio('N');
         }
 
 
 
-        body.MovePosition(
-            (Vector2)this.transform.position + 
-            MoveVector * Time.fixedDeltaTime * ScaleManager.ScaleWindow);
+            body.MovePosition(
+                    (Vector2)this.transform.position +
+                    MoveVector * Time.fixedDeltaTime * ScaleManager.ScaleWindow);
         animator.SetFloat("Speed", Mathf.Abs(MoveVector.x));
         GetComponent<SpriteRenderer>().flipX = (MoveVector.x < 0);
+    }
+
+    private void PlayAudio(char Status)
+    {
+        if (AudioStatus != Status)
+        {
+            switch (Status)
+            {
+                case 'N':
+                    AudioStatus = 'N';
+                    StepsAudio.Stop();
+                    break;
+                case 'W':
+                    AudioStatus = 'W';
+                    StepsAudio.Play();
+                    break;
+                case 'R':
+                    AudioStatus = 'R';
+                    break;
+            }
+        }
     }
 }

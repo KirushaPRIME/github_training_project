@@ -11,8 +11,9 @@ public class MessegerWindowFolded : FoldedObjectScript
 
     public BlockMessengerButtonBehaviour BMBB;
     public SpriteMask Chat;
-    public UnityEngine.UI.Mask StikerPack;
-    public EventSystem eventSystem;
+    public UnityEngine.UI.Mask StikerPackMask;
+    public Transform StikerPack;
+    //public GameObject EventSys;
 
     private void Awake()
     {
@@ -25,22 +26,37 @@ public class MessegerWindowFolded : FoldedObjectScript
     protected override void WhenOpenWindow()
     {
         //Do if game open
-        BMBB.Unblock();
         GetComponent<SpriteMask>().enabled = true;
         MessengerSpriteMask.enabled = true;
         Chat.enabled = true;
-        StikerPack.enabled = true;
+        StikerPackMask.enabled = true;
     }
     protected override void WhenFoldedWindow()
     {
+        
         GetComponent<SpriteMask>().enabled = false;
         //Do if game folded
         MessengerSpriteMask.enabled = false;
         Chat.enabled = false;
-        StikerPack.enabled = false;
+        StikerPackMask.enabled = false;
     }
     public override void StopThisWindow()
     {
-        BMBB.Block();
+        for (int i = 0; i < StikerPack.childCount; i++)
+        {
+            StikerPack.GetChild(i).GetComponent<Button>().enabled = false;
+        }
+    }
+    public override void StartThisWindow()
+    {
+        Button button;
+        for (int i = 0; i < StikerPack.childCount; i++)
+        {
+            if (StikerPack.GetChild(i).TryGetComponent<Button>(out button))
+            {
+                button.enabled = true;
+                Debug.Log(StikerPack.GetChild(i).name);
+            }
+        }
     }
 }

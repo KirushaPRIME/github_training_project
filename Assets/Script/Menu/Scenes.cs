@@ -14,7 +14,7 @@ public class Scenes : MonoBehaviour
             }
             return PlayerPrefs.GetInt("Level");
         }
-        private set
+        protected set
         {
             PlayerPrefs.SetInt("Level", value);
         }
@@ -45,5 +45,8 @@ public class Scenes : MonoBehaviour
     public static void ReturnToMenu()
     {
         SceneManager.LoadScene("Menu");
+    }
+    public static void Exit() {
+        Application.Quit();
     }
 }

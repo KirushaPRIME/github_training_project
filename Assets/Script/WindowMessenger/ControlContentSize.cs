@@ -11,25 +11,13 @@ public class ControlContentSize : MonoBehaviour
     private void Awake()
     {
         ContentSizeX = transform.parent.GetComponentInParent<RectTransform>().sizeDelta.x;
-    }
-    void Start()
-    {
-        
-    }
-    void Update()
-    {
-        
-    }
-    private void FixedUpdate()
-    {
-        
-        
+        ContentSizeUpdate(0,0);
     }
     public void ContentSizeUpdate(float NewSizeX, float NewSizeY)
     {
-        ContentSizeY = NewSizeY;
-        GetComponent<RectTransform>().sizeDelta = new Vector2(NewSizeX, NewSizeY);
-        GetComponent<Transform>().localPosition = new Vector2(0, ContentSizeY/2);
+        ContentSizeY += NewSizeY;
+        GetComponent<RectTransform>().sizeDelta = new Vector2(NewSizeX, ContentSizeY);
+        GetComponent<RectTransform>().anchoredPosition = new Vector2(0, ContentSizeY);
     }
     public float GetContentSizeX() { return ContentSizeX; }
     public float GetContentSizeY() { return ContentSizeY; }

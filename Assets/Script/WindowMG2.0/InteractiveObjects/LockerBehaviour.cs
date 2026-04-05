@@ -27,8 +27,9 @@ public class LockerBehaviour : MonoBehaviour
         {
             Surv.SetActive(IsHide);
             IsHide = true;
+            return;
         }
-        if (IsHide && !Input.GetKey(KeyManager.Interaction))
+        if (IsHide && Input.GetKeyDown(KeyManager.Interaction))
         {
             Surv.SetActive(IsHide);
             IsHide = false;

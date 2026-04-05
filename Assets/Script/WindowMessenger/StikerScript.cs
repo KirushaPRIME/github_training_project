@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class StikerScript : ClassMessage
 {
@@ -33,8 +34,9 @@ public class StikerScript : ClassMessage
         Debug.Log(++count);
         GameObject NewMeme;
         NewMeme = Instantiate(PrefabMessage, StikerManager.Transform);
-        NewMeme.GetComponent<SpriteRenderer>().sprite = StikerManager.sprites[0];
-        AddMessage(NewMeme, StikerManager.sprites[0].bounds.size.x, StikerManager.sprites[0].bounds.size.y, Content);
+        NewMeme.GetComponent<Image>().sprite = StikerManager.sprites[Int32.Parse(name.Split('_')[1])];
+        AddMessage(NewMeme.GetComponent<RectTransform>(), StikerManager.sprites[0].bounds.size.x, StikerManager.sprites[0].bounds.size.y, StikerManager.Content.GetComponent<RectTransform>());
+        Debug.Log(StikerManager.sprites[0].bounds.size.y);
         //doWithSendStiker(this, new EventArgs());
         CountAnswer++;
     }

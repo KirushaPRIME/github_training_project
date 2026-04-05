@@ -20,7 +20,8 @@ public class ControlNeZapreta : MonoBehaviour
     public bool HUYNA = false;
     public short WorkingService;
     public TextMeshProUGUI inputFiled;
-    private KeyCode[] keyCodes = {KeyCode.Keypad0,
+    private KeyCode[] keyCodes = {
+        KeyCode.Keypad0,
         KeyCode.Keypad1,
         KeyCode.Keypad2,
         KeyCode.Keypad3,
@@ -29,9 +30,22 @@ public class ControlNeZapreta : MonoBehaviour
         KeyCode.Keypad6,
         KeyCode.Keypad7,
         KeyCode.Keypad8,
-        KeyCode.Keypad9 };
-    private short MaxWaitingTime = 4;
-    private short MinWaitingTime = 2;
+        KeyCode.Keypad9,
+        KeyCode.Alpha0,
+        KeyCode.Alpha1,
+        KeyCode.Alpha2,
+        KeyCode.Alpha3,
+        KeyCode.Alpha4,
+        KeyCode.Alpha5,
+        KeyCode.Alpha6,
+        KeyCode.Alpha7,
+        KeyCode.Alpha8,
+        KeyCode.Alpha9,
+    };
+    private short MaxWaitingTime = 3;
+    private short MinWaitingTime = 1;
+    private short MinTimeForCheakServise = 1;
+    private short MaxTimeForCheakServise = 2;
     private float TimeStop = 0;
     private short LengthInput = 0;
     public short NamberInstalService = -1;
@@ -99,9 +113,9 @@ public class ControlNeZapreta : MonoBehaviour
         }
         if (LengthInput < 100)
         {
-            for (int i = 0; i < keyCodes.Length; i++)
+            for (int i = 0; i < 10; i++)
             {
-                if (Input.GetKeyUp(keyCodes[i]))
+                if (Input.GetKeyUp(keyCodes[i]) || Input.GetKeyUp(keyCodes[i + 10]))
                 {
                     inputFiled.text += i;
                     StrInput += i;
@@ -207,7 +221,7 @@ public class ControlNeZapreta : MonoBehaviour
             SwitchMenu(3);
         }
         NamberIterartionTest++;
-        DoPause(MinWaitingTime, MaxWaitingTime);
+        DoPause(MinTimeForCheakServise, MaxTimeForCheakServise);
     }
     private void SwitchMenu(short Namber)
     {

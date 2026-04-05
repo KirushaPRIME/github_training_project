@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class MemeManager : ClassMessage
 {
@@ -14,7 +15,7 @@ public class MemeManager : ClassMessage
     int LastCountAnswer;
     int CountMissedMessage;
 
-    public static float Frequency;
+    public static float MiddlePause;
     private float PostTime = 0;
 
     private AudioSource audioSource;
@@ -26,28 +27,29 @@ public class MemeManager : ClassMessage
 
     void Start()
     {
-        MemeManager.Frequency = 30;
+        MemeManager.MiddlePause = 30;
         MaxCountMissedMessage = 3;
 
+        // Настройка сложности
         if (Scenes.Level > 2)
-                Frequency = 20;
+            MiddlePause = 25;
         if (Scenes.Level > 3)
-                Frequency = 15;
+            MiddlePause = 15;
         if (Scenes.Level > 4)
-                Frequency = 12;
+            MiddlePause = 12;
          
 
         LastCountAnswer = 0;
         CountMissedMessage = 0;
         audioSource = GetComponent<AudioSource>();
-        PostTime = Time.time + Random.Range(Frequency / 2, Frequency * 1.5f);
+        PostTime = Time.time + Random.Range(MiddlePause / 2, MiddlePause * 1.5f);
     }
 
     void Update()
     {
         if (PostTime < Time.time)
         {
-            PostTime = Time.time + Random.Range(Frequency / 2, Frequency*1.5f);
+            PostTime = Time.time + Random.Range(MiddlePause / 2, MiddlePause * 1.5f);
             AddMeme(Random.Range(0, spriteList.Count - 1));
         }
     }
@@ -61,9 +63,9 @@ public class MemeManager : ClassMessage
         
         GameObject NewMeme;
         NewMeme = Instantiate(PrefabMeme,GetComponent<Transform>());
-        NewMeme.GetComponent<SpriteRenderer>().sprite = spriteList[(int)Index];
+        NewMeme.GetComponent<Image>().sprite = spriteList[(int)Index];
         //NewMeme.GetComponent<PositionButtonControl>().ResetPosition(spriteList[(int)Index].bounds.size.y);
-        AddMessage(NewMeme, spriteList[(int)Index].bounds.size.x, spriteList[(int)Index].bounds.size.y, GetComponent<Transform>().gameObject);
+        AddMessage(NewMeme.GetComponent<RectTransform>(), spriteList[(int)Index].bounds.size.x, spriteList[(int)Index].bounds.size.y, GetComponent<RectTransform>());
         audioSource.Play();
         CheakAnswer();
         return true;

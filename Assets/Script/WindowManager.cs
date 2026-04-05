@@ -6,6 +6,7 @@ using UnityEngine.UIElements;
 
 public class WindowManager : MonoBehaviour
 {
+    public Camera camera;
     public GameObject HighlighterObject;
     private static GameObject FoldedObject;
     private static GameObject OpenObject;
@@ -13,8 +14,8 @@ public class WindowManager : MonoBehaviour
     public int CountWindow {  get; private set; }
     public GameObject[] Windows;
     private static bool WindowIsSelected = false;
-    public const float NormalScale = 0.838f;
-    public const float NormalWidht = 18f;
+    public const float NormalScale = 1;
+    //public const float NormalWidht = 18f;
     public float SmallScale { get; private set; }
     public float SmallWidht { get; private set; }
     public const float Space = 1.2f;
@@ -23,7 +24,7 @@ public class WindowManager : MonoBehaviour
     {
         CountWindow = Windows.Length;
         SmallScale = NormalScale / (CountWindow * Space);
-        SmallWidht = NormalWidht / (CountWindow * Space);
+        SmallWidht = camera.orthographicSize * 2 * camera.aspect / (CountWindow * Space);
     }
     void Start()
     {
@@ -137,6 +138,7 @@ public class WindowManager : MonoBehaviour
     private void WindowOpen(short Index)
     {
         Windows[Index].GetComponent<FoldedObjectScript>().OpenYourSelf();
+        Windows[Index].GetComponent<FoldedObjectScript>().StartThisWindow();
     }
     public static short GetHighlighterNamber() { return HighlighterNamber; }
     public static GameObject GetFoldedObject() { return FoldedObject; }

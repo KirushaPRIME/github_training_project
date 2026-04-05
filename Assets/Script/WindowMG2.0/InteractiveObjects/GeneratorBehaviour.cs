@@ -8,7 +8,7 @@ public class GeneratorBehaviour : InteractiveObjectBehaviour
 {
     public delegate void DoneGEnerator(object Ob, EventArgs args);
     public static event DoneGEnerator doneGEnerator;
-
+    public GameObject particleSystem;
 
     private float SkillCheakTime;
     public static float MaxSkillCheakPause = 10;
@@ -48,6 +48,9 @@ public class GeneratorBehaviour : InteractiveObjectBehaviour
     protected override void DoWhenDone()
     {
         _SkillCheakBehaviour.DoSafeBreak();
+        GetComponent<Animator>().SetBool("IsDone", true);
+        GetComponent<AudioSource>().Play();
+        particleSystem.SetActive(true);
         CountDoneGane++;
         if (doneGEnerator != null)
             doneGEnerator(this, new EventArgs());

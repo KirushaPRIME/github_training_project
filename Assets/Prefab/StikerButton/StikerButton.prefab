@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 8262382765596926535}
   - component: {fileID: 177728102104468015}
   - component: {fileID: 6130539623822817649}
-  - component: {fileID: 3923201603562454017}
+  - component: {fileID: 4144546369664675368}
   m_Layer: 0
   m_Name: StikerButton
   m_TagString: Untagged
@@ -37,7 +37,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 1}
   m_AnchorMax: {x: 0.5, y: 1}
-  m_AnchoredPosition: {x: -1.925, y: -1.9685998}
+  m_AnchoredPosition: {x: -1.925, y: -1.9685974}
   m_SizeDelta: {x: 3.85, y: 3.953}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &8262382765596926535
@@ -84,7 +84,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 3923201603562454017}
+      - m_Target: {fileID: 4144546369664675368}
         m_TargetAssemblyTypeName: StikerScript, Assembly-CSharp
         m_MethodName: SendStiker
         m_Mode: 1
@@ -134,7 +134,7 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
---- !u!114 &3923201603562454017
+--- !u!114 &4144546369664675368
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}

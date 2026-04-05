@@ -7,28 +7,21 @@ public class ClassMessage : MonoBehaviour
     private bool IsHaveParent;
     
     static private float Space = 1f;
-    void Start()
-    {
-        
-    }
-    private void CheakHaveParent()
-    {
 
-    }
-    void Update()
-    {
-        
-    }
-    protected void AddMessage(GameObject Messenge , float Width, float Height, GameObject Parent)
+    protected void AddMessage(RectTransform Messenge , float Width, float Height, RectTransform Parent)
     {
         //Debug.Log(HeightContent);
         ControlContentSize controlContentSize = Parent.GetComponent<ControlContentSize>();
+        float NewWidth, NewHeight;
         if (controlContentSize != null)
         {
-            float HeightContent = controlContentSize.GetContentSizeY() + Height + Space;
-            Messenge.transform.GetChild(0).gameObject.GetComponentsInChildren<SpriteRenderer>()[0].size = new Vector2(controlContentSize.GetContentSizeX(), Height + Space * 0.9f);
-            controlContentSize.ContentSizeUpdate(0, HeightContent);
-            Messenge.GetComponent<Transform>().localPosition = new Vector2(0, -HeightContent / 2 + (Height + Space * 0.9f) / 2);
+            
+            NewWidth = Parent.rect.width - Space;
+            NewHeight = Messenge.rect.height / Messenge.rect.width * Parent.rect.width - Space;
+            Messenge.sizeDelta = new Vector2(NewWidth, NewHeight);
+            controlContentSize.ContentSizeUpdate(0, NewHeight + Space);
+            Messenge.anchoredPosition = new Vector2(0,
+                -Parent.rect.height + NewHeight / 2 + Space);
         } else
         {
             Debug.Log("Родитель объекта " +  Messenge.name + " не имеет ControlContentSize");
